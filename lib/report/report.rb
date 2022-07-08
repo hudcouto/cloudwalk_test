@@ -22,6 +22,18 @@ module Lib
         JSON.pretty_generate(data)
       end
 
+      def by_death_type
+        data = {}
+        @matches.each_with_index do |match, index|
+          data["game_#{index + 1}"] = {
+            total_kills: match.total_kills,
+            players: match.players.map(&:name).sort,
+            kills_by_death_type: match.kills_by_death_type.sort_by { |_key, value| -value }.to_h
+          }
+        end
+        JSON.pretty_generate(data)
+      end
+
       private
 
       def generate_kills(players:, kills:)
