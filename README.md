@@ -35,3 +35,7 @@ rspec
 ## running using docker
 
 # TODO:
+
+``` sh
+docker-compose up
+```
