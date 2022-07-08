@@ -29,5 +29,9 @@ RSpec.describe Lib::Score::Calculator do
     it 'should return total kills' do
       expect(score.total_kills).to eq 3
     end
+
+    it 'should return kills by death type' do
+      expect(score.kills_by_death_type).to eq({ 'MOD_SHOTGUN' => 3 })
+    end
   end
 end

@@ -22,6 +22,10 @@ module Lib
         world_kills.values.sum
       end
 
+      def kills_by_death_type
+        @kills.reject(&:by_suicide?).group_by(&:death_type).transform_values(&:count)
+      end
+
       private
 
       def world_kills

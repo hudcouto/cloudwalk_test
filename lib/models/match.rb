@@ -44,6 +44,11 @@ module Lib
         Lib::Score::Calculator.new(players: @players,
                                    kills: @kills).kills_by_world
       end
+
+      def kills_by_death_type
+        Lib::Score::Calculator.new(players: @players,
+                                   kills: @kills).kills_by_death_type
+      end
     end
   end
 end
