@@ -3,7 +3,7 @@
 module Lib
   module Models
     class User
-      attr_reader :id, :name
+      attr_accessor :id, :name
 
       def initialize(id:, name:)
         @id = id
