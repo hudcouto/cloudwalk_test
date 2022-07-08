@@ -2,6 +2,7 @@
 
 require_relative './user'
 require_relative './kill'
+require_relative '../score/calculator'
 
 module Lib
   module Models
@@ -9,22 +10,39 @@ module Lib
       attr_reader :players, :kills
 
       def initialize
-        @players = {}
+        @players = []
         @kills = []
       end
 
       def find_or_create_player(id:, name:)
-        if @players.key(id)
-          player = @players[id]
+        if @players.find { |player| player.id == id }
+          player = @players.find { |player| player.id == id }
           player.name = name
         else
           player = User.new(id: id.to_i, name:)
-          @players[id] = player
+          @players << player
         end
       end
 
       def create_kill(killer_id:, victim_id:, death_type:)
-        @kills << Kill.new(killer_id: killer_id.to_i, victim_id: victim_id.to_i, death_type:)
+        @kills << Kill.new(killer_id: killer_id.to_i,
+                           victim_id: victim_id.to_i,
+                           death_type:)
+      end
+
+      def total_kills
+        Lib::Score::Calculator.new(players: @players,
+                                   kills: @kills).total_kills
+      end
+
+      def kills_by_player
+        Lib::Score::Calculator.new(players: @players,
+                                   kills: @kills).kills_by_player
+      end
+
+      def kills_by_world
+        Lib::Score::Calculator.new(players: @players,
+                                   kills: @kills).kills_by_world
       end
     end
   end

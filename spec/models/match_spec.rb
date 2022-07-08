@@ -16,19 +16,17 @@ RSpec.describe Lib::Models::Match do
 
     it 'should add a new player' do
       expect(match.players).not_to be_empty
-      expect(match.players[1].name).to eq 'Hudson'
+      expect(match.players.first.name).to eq 'Hudson'
     end
 
     it 'add second player' do
       match.find_or_create_player(id: 2, name: 'Silva')
-      expect(match.players).not_to be_empty
-      expect(match.players[2].name).to eq 'Silva'
-      expect(match.players.count).to eq 2
+      expect(match.players[1].name).to eq 'Silva'
     end
 
     it 'update a existing player' do
       match.find_or_create_player(id: 1, name: 'Hudson C')
-      expect(match.players[1].name).to eq 'Hudson C'
+      expect(match.players[0].name).to eq 'Hudson C'
     end
   end
 
