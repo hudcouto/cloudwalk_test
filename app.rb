@@ -7,10 +7,13 @@ require_relative './lib/report/report'
 FILE = "#{__dir__}/data/qgames.log".freeze
 
 class App
-  def read_file
+  def generate_reports
     matches = Lib::Parser::Parser.new(file: open_file).parser
-    report = Lib::Report::Report.new(matches:).default
-    generate_report(report:)
+    default_report = Lib::Report::Report.new(matches:).default
+    generate_default_report(report: default_report)
+
+    by_death_type_report = Lib::Report::Report.new(matches:).by_death_type
+    generate_kills_by_death_type_report(report: by_death_type_report)
   end
 
   private
@@ -19,9 +22,13 @@ class App
     File.open(FILE)
   end
 
-  def generate_report(report:)
-    File.write('report.json', report)
+  def generate_default_report(report:)
+    File.write('default_report.json', report)
+  end
+
+  def generate_kills_by_death_type_report(report:)
+    File.write('kills_by_death_type_report.json', report)
   end
 end
 
-App.new.read_file
+App.new.generate_reports
