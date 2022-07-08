@@ -8,9 +8,18 @@ FILE = "#{__dir__}/data/qgames.log".freeze
 
 class App
   def read_file
-    file = File.open(FILE)
-    parsed_file = Lib::Parser::Parser.new(file:).parser
-    report = Lib::Report::Report.new(matches: parsed_file).default
+    matches = Lib::Parser::Parser.new(file: open_file).parser
+    report = Lib::Report::Report.new(matches:).default
+    generate_report(report:)
+  end
+
+  private
+
+  def open_file
+    File.open(FILE)
+  end
+
+  def generate_report(report:)
     File.write('report.json', report)
   end
 end
