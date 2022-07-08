@@ -43,13 +43,13 @@ module Lib
       end
 
       def create_kill(line:, match:)
-        _, _, killer_id, victim_id, _death_id, description = line.split(' ', 6)
+        _data, _action, killer_id, victim_id, _death_id, description = line.split(' ', 6)
         death_type = description.split(' ')[-1]
         match.create_kill(killer_id:, victim_id:, death_type:)
       end
 
       def instance_player(line:, match:)
-        _, _, user_id, connection_info = line.split(' ', 4)
+        _data, _action, user_id, connection_info = line.split(' ', 4)
         user_name = connection_info.split('\\')[1]
         match.find_or_create_player(id: user_id.to_i, name: user_name)
       end
