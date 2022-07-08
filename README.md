@@ -24,7 +24,7 @@ bundle install
 ruby app.rb
 ```
 
-> Obs: after that a file called report.json wil be generated
+> Obs: after that two files called default_report.json and kills_by_death_type_report.json wil be generated
 
 ## run specs
 
